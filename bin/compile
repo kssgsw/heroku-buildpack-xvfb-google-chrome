@@ -146,7 +146,7 @@ BIN_DIR=$BUILD_DIR/.apt/usr/bin
 rm $BIN_DIR/$SHIM
 cat <<EOF >$BIN_DIR/$SHIM
 #!/usr/bin/env bash
-LD_PRELOAD_PATH=/usr/lib/x86_64-linux-gnu/:\$LD_PRELOAD_PATH
+export LD_PRELOAD_PATH=/usr/lib/x86_64-linux-gnu/:\$LD_PRELOAD_PATH
 exec \$HOME/.apt/usr/lib/chromium-browser/chromium-browser --disable-gpu --no-sandbox --disable-dev-shm-usage --headless \$@
 EOF
 chmod +x $BIN_DIR/$SHIM
