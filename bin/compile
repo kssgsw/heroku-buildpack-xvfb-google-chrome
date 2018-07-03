@@ -67,7 +67,7 @@ esac
 
 indent "Installing Google Chrome from the $channel channel."
 
-PACKAGES="https://dl.google.com/linux/direct/google-chrome-${channel}_current_amd64.deb libxss1 libnss3 xvfb"
+PACKAGES="libstdc++6 chromium-browser libxss1 libnss3 xvfb"
 
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
@@ -146,7 +146,8 @@ BIN_DIR=$BUILD_DIR/.apt/usr/bin
 rm $BIN_DIR/$SHIM
 cat <<EOF >$BIN_DIR/$SHIM
 #!/usr/bin/env bash
-exec \$HOME/.apt/opt/google/$BIN --disable-gpu --no-sandbox \$@
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:\$LD_LIBRARY_PATH
+\$HOME/.apt/usr/lib/chromium-browser/chromium-browser --disable-gpu --no-sandbox --disable-dev-shm-usage --headless \$@
 EOF
 chmod +x $BIN_DIR/$SHIM
 cp $BIN_DIR/$SHIM $BIN_DIR/google-chrome
